@@ -13,3 +13,4 @@ backups/
 *.env
 .env*
 config.local.*
+!docs/*-preview.png
