@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict');
+const {project,applyPatch}=require('./status-model.cjs');
+let s={title:'Task',threadRuntimeStatus:{type:'active',activeFlags:[]},requests:[]};
+assert.equal(project(s).status,'Working');
+applyPatch(s,{op:'replace',path:['threadRuntimeStatus','activeFlags'],value:['waitingOnUserInput']});
+assert.equal(project(s).status,'Needs input');
+applyPatch(s,{op:'replace',path:['threadRuntimeStatus'],value:{type:'idle'}});
+applyPatch(s,{op:'replace',path:['hasUnreadTurn'],value:true});
+assert.equal(project(s).status,'Ready');
+applyPatch(s,{op:'replace',path:['hasUnreadTurn'],value:false});assert.equal(project(s).status,'Idle');
+s.threadRuntimeStatus={type:'systemError'};assert.equal(project(s).status,'Failed');
+assert.equal(project({}).status,'Unavailable');
+assert.throws(()=>applyPatch(s,{op:'add',path:['requests','__proto__','polluted'],value:true}));
+applyPatch(s,{op:'add',path:['turnHistory','private'],value:'not retained'});assert.equal(s.turnHistory,undefined);
+console.log('PASS: working, input, ready, idle, error, unknown, unsafe path and history exclusion');

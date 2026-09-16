@@ -1,0 +1,13 @@
+{
+  "name": "x3-codex-companion",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Local Codex desktop status on an Xteink X3",
+  "scripts": {
+    "assets": "python scripts/build_assets.py && node scripts/render_assets.cjs",
+    "test": "node test-status.cjs && node test-questions.cjs"
+  },
+  "devDependencies": {
+    "sharp": "0.35.4"
+  }
+}

@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict');
+const {QuestionState}=require('./question-state.cjs');
+const q=new QuestionState('unused');
+const event=payload=>q.consume({type:'response_item',payload});
+const call=(id,n=2)=>event({type:'function_call',name:'request_user_input_async',call_id:id,arguments:JSON.stringify({questions:Array(n).fill({title:'private text'})})});
+const ack=(id,accepted)=>event({type:'function_call_output',call_id:id,output:JSON.stringify({accepted})});
+const reply=(id,i)=>event({type:'message',role:'user',content:[{text:'<send_user_message_question_reply>\n'+JSON.stringify([{questionItemId:JSON.stringify(['request_user_input_async',id,i]),answer:'yes'}])+'\n</send_user_message_question_reply>'}]});
+call('a');assert.equal(q.pending.size,0);ack('a',true);assert.equal(q.pending.size,2);
+reply('a',0);assert.equal(q.pending.size,1);reply('a',1);assert.equal(q.pending.size,0);
+call('b');ack('b',false);assert.equal(q.pending.size,0);
+call('c',1);ack('c',true);reply('other',0);assert.equal(q.pending.size,1);
+assert.ok(!JSON.stringify([...q.pending]).includes('private text'));
+console.log('PASS: accepted questions, partial/full replies, rejected calls, unrelated replies and text exclusion');

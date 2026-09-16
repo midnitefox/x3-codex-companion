@@ -1,0 +1,15 @@
+# Local runtime, personal data, and build outputs
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+*.log
+preview.png
+approved-live-preview.png
+*-preview.png
+firmware/.pio/
+backups/
+*.bin
+*.env
+.env*
+config.local.*

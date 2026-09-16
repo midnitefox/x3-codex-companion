@@ -1,0 +1,4 @@
+-r requirements.txt
+fonttools>=4.50,<5
+platformio==6.1.19
+esptool==5.1.2
