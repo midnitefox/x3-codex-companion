@@ -4,7 +4,7 @@ A USB-connected **Xteink X3 status display for Codex desktop on Windows**. See w
 
 ![Eight X3 devices showing the status interface](docs/device-preview.png)
 
-[Watch or download the 22-second promo](https://github.com/midnitefox/x3-codex-companion/blob/main/docs/promo.mp4) · [Direct MP4](https://raw.githubusercontent.com/midnitefox/x3-codex-companion/main/docs/promo.mp4)
+[Watch or download the 22-second promo](https://midnitefox.github.io/x3-codex-companion/) · [Direct MP4](https://midnitefox.github.io/x3-codex-companion/promo.mp4)
 
 *Silent, square-format video. Includes generated device mockups and illustrative customization concepts.*
 
